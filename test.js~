@@ -1,0 +1,119 @@
+var colors = require('colors');
+
+console.log('hello'.green); // outputs green text
+console.log('i like cake and pies'.underline.red) // outputs red underlined text
+console.log('inverse the color'.inverse); // inverses the color
+console.log('OMG Rainbows!'.rainbow); // rainbow (ignores spaces)
+
+var Circle = require('circle.js');
+var circle = Circle(2,2,5);
+console.log(circle.r_sq());
+console.log(circle.area());	
+
+var Circle1 = require('circle.js');
+var circle1 = Circle1(3,2,9);
+console.log(circle1.r_sq());
+console.log(circle1.area());	
+
+var buf = new Buffer('Hello world!');
+
+//console.log(buf.length);
+
+/*var fs = require('fs');
+fs.readFile('/var/www/node/test.txt', function(err, fileContent){
+	if(err){
+		throw err;
+	}
+	console.log(fileContent);
+	console.log('file content', fileContent.tostring());
+});*/
+
+/*var req = http.request(options, function(response){
+	response.on("data", function(data){
+		console.log("Response",data);	
+	});
+
+	response.on("end" , function(){
+		console.log("Response ended");
+	});
+});
+
+req.end();
+
+
+var em = new (require('events').EventEmitter)();
+em.emit('events');
+em.emit('error',new Error('My mistake'));*/
+
+
+
+
+var events = require('events'),
+util = require('util');
+
+
+var x = 1;
+var foo = function(callbackfn){
+	return callbackfn(x * 2);
+};
+
+foo( function(x){
+	console.log(x);
+});
+
+TwitterStream.prototype.getTweets = function() {
+var opts = {
+host: 'stream.twitter.com',
+port: 80,
+path: '/1/statuses/filter.json?track=' + this.track,
+method: 'POST',
+headers: {
+'Connection': 'keep-alive',
+'Accept': '*/*',
+'User-Agent': 'Example Twitter Streaming Client',
+'Authorization': 'Basic ' + new Buffer(this.username + ':' + this.password).toString('base64'),
+},
+},
+self = this;
+this.connection = http.request(opts, function(response) {
+response.setEncoding('utf8');
+response.on('data', function(chunk) {
+self.data += chunk.toString('utf8');
+ 
+var index, json;
+ 
+while((index = self.data.indexOf('\r\n')) > -1) {
+json = self.data.slice(0, index);
+self.data = self.data.slice(index + 2);
+if(json.length > 0) {
+try {
+self.emit('tweet', JSON.parse(json));
+} catch(e) {
+self.emit('error', e);
+}
+}
+}
+});
+});
+ 
+this.connection.write('?track=' + this.track);
+this.connection.end();
+};
+
+var Foo = function(initial_no) { this.count = initial_no; };
+
+Foo.prototype = new events.EventEmitter;
+ 
+Foo.prototype.increment = function() {
+var self = this;
+setInterval(function() {
+if(self.count % 2 === 1) self.emit('even');
+self.count++;
+}, 100);
+};
+ 
+var lol = new Foo(1);
+ 
+lol.on('even', function() {
+util.puts('Number is even! :: ' + this.count);
+}).increment();
